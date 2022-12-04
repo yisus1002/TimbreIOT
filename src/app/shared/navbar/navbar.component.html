@@ -1,0 +1,34 @@
+<nav class="navbar shadow-sm navbar-expand-md  px-3" >
+    <div class="container-fluid" >
+        <a class="navbar-brand" [routerLink]="['home']">
+            <img src="https://plataformas.datasistemasweb.com/pvictoriamanzur/webroot/img/escudo_colegio.png" class="img" alt="iot" width="50" height="50">
+        </a>
+        <div class="contPerfil">
+            <app-avatar></app-avatar>
+            <button mat-icon-button
+                    aria-label="Example icon button with a menu icon"
+                    class="navbar-toggler"
+                    type="button"
+                    color="primary"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <mat-icon>menu</mat-icon>
+        </button>
+        </div>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"   routerLinkActive="active" aria-current="page" [routerLink]="['home']" >Inicio</a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"   routerLinkActive="active" aria-current="page" [routerLink]="['usuarios']">Administrar usuarios</a>
+          </li> 
+        </ul>
+      </div>
+    </div>
+  </nav>

@@ -1,0 +1,70 @@
+<div class="container-fluid p-2">
+    <section class="container">
+        <h1 class="text-center">Usuarios permitidos</h1>
+        <div class="d-flex my-1" style="justify-content: end;">
+            <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Agregar Usuario</button>
+        </div>
+        <div class="container shadow">
+            <mat-form-field appearance="standard" >
+                <mat-label style="color: #ffff;">Filter</mat-label>
+                <input  matInput (keyup)="applyFilter($event)" placeholder="Buscar ..." #input>
+              </mat-form-field>
+
+              <div class="mat-elevation-z8 " tabindex="0" >
+                <div class="example-container" >
+                    <table mat-table 
+                     [dataSource]="dataSource" matSort>
+                   
+                      <ng-container matColumnDef="Nombre 1">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre 1</th>
+                        <td mat-cell *matCellDef="let Usuarios"> {{Usuarios?.PID}} </td>
+                      </ng-container>
+                 
+                      <ng-container matColumnDef="Nombre 2">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header >Nombre 2</th>
+                        <td mat-cell *matCellDef="let  Usuarios"> {{ Usuarios?.nombreDeImagen}} </td>
+                      </ng-container>
+                 
+                      <ng-container matColumnDef="Apellido 1">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellido 1</th>
+                        <td mat-cell *matCellDef="let  Usuarios"> {{ Usuarios?.nombreDeUsuario}} </td>
+                      </ng-container>
+                 
+                      <ng-container matColumnDef="Apellido 2">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellido 2</th>
+                        <td mat-cell *matCellDef="let  Usuarios"> {{ Usuarios?.nombreDeSesion}} </td>
+                      </ng-container>
+                   
+                      <ng-container matColumnDef="Correo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Correo</th>
+                        <td mat-cell *matCellDef="let  Usuarios"> {{ Usuarios?.tituloDeVentana}} </td>
+                      </ng-container>
+            
+                      <ng-container matColumnDef="Opciones">
+                        <th mat-header-cell *matHeaderCellDef>Opciones</th>
+                        <td mat-cell *matCellDef="let  Usuarios; let i = index;">{{i+1}}
+                          <!-- <mat-checkbox
+                                        (click)="$event.stopPropagation();seleccc(Usuarios)"
+                                        (change)="$event ? _contr.selection.toggle(Usuarios) : null"
+                                        [checked]="_contr.selection.isSelected(Usuarios)" >
+                          </mat-checkbox> -->
+                        </td>
+                      </ng-container>
+                      
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let Usuarios; columns: displayedColumns; let i = index"></tr>
+            
+                      <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                      </tr>
+                    </table>
+                </div>
+                <mat-paginator   
+                    [pageSizeOptions]="options" showFirstLastButtons
+                ></mat-paginator>
+                
+              </div>
+
+        </div>
+    </section>
+</div>

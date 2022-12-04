@@ -1,0 +1,9 @@
+<button class="btn shadow-sm" mat-button
+        [matMenuTriggerFor]="menu"
+        style="overflow: hidden; " >
+    <img class="img img-fluid" src="https://i.ibb.co/9Y9fY0b/profile.png" alt="perfil">
+</button>
+<mat-menu #menu="matMenu">
+  <button routerLinkActive="active"  [routerLink]="['perfil']" mat-menu-item>Perfil</button>
+  <button mat-menu-item (click)="exit()">Salir</button>
+</mat-menu>

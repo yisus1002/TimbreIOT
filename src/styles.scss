@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+html, body { height: 100%; }
+body { margin: 0;font-family: 'Nunito Sans', sans-serif;
+background-color: #ffff;
+
+}
+
+::-webkit-scrollbar{
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb{
+  background: linear-gradient(
+    to bottom,
+    #2fff0a,
+    #f1ff34
+  );
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track{
+  background: #474747;
+}
+footer{
+  clear: both;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
