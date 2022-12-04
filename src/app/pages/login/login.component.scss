@@ -1,0 +1,29 @@
+.example-right-align {
+    text-align: right;
+  }
+  
+  input.example-right-align::-webkit-outer-spin-button,
+  input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+  }
+  
+  input.example-right-align {
+    -moz-appearance: textfield;
+  }
+  .btn-ingresar{
+    border: none!important;
+    transition: 300ms;
+    color: #ffff;
+    background-color: rgb(5, 116, 252);
+  }
+  .img-thumbnail{
+    display: flex!important;
+    border: none!important;
+    border-radius: 100%!important;
+    overflow: hidden!important;
+    margin: (0 auto)!important;
+  }
+  .bg-login{
+    background: rgb(214,107,174);
+    background: radial-gradient(circle, rgba(214,107,174,1) 0%, rgba(0,227,255,1) 50%, rgba(0,0,0,1) 100%);
+  }

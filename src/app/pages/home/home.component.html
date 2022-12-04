@@ -1,14 +1,14 @@
-<div class="container-fluid p-2">
+<div class="container-fluid pt-2 px-0">
     <section class="container">
         <h1  class="text-center bold">Control para el timbre</h1>
         <div class="shadow rounded-4">
           <h2 style="font-size: 16px; " class="text-center m-0 pt-3">Horario de clases de lunes a viernes</h2>
           <div class="d-flex  px-2 d-flex flex-wrap justify-content-between" style="align-items: center;">
-            <div class="">
+            <div class="d-flex my-1" style="justify-content: space-between;">
               <button class="btn btn-sm text-center mx-3 px-1 pt-0 my-0 rounded-4 text-wrap bg-success" mat-button color="primary" style="font-size: 14px;" >Tocar timbre</button>
               <button class="btn btn-sm text-center mx-3 px-1 pt-0 my-0 rounded-4 text-wrap bg-danger" mat-button color="warn" style="font-size: 14px;">Desactivar timbre</button>  
             </div>
-            <div class="">
+            <div class="d-flex my-1" style="justify-content: space-between;">
               <button class="btn btn-sm  btn-editar scale-in-center">
                 <span></span>
                 <span></span>
@@ -21,27 +21,30 @@
               <button class="btn btn-sm text-center mx-3 px-1 pt-0 my-0 rounded-4 text-wrap bg-danger" mat-button >Cancelar</button>
             </div>
             </div>
-          <div class="py-2 col col-sm-10 col-md-9" style="display: flex;justify-content: center;align-items: center; margin: 0 auto;">
-            <table class="table " >
-              <thead class="table-dark">
-                <tr> 
-                    <th scope="col">Hora de inicio</th>
-                    <th scope="col">Hora de fin</th>
-                    <th scope="col">Descripción</th>
-                    <!-- <th scope="col">Opciones</th> -->
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr> 
-                    <td>Mark</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <!-- <td>
-                        <button mat-mini-fab ><mat-icon class="text-danger">delete</mat-icon></button>
-                    </td> -->
-                  </tr>
-                </tbody>
-              </table>
+          <div class="col-12 colsm-10 col-md-9 mt-2" style="margin: 0 auto;">
+              <div class="table-responsive">
+                <table class="table " >
+                  <thead class="table-dark">
+                    <tr> 
+                        <th >Hora de inicio</th>
+                        <th >Hora de fin</th> 
+                        <th >Descripción</th>
+                        <th >Opciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr> 
+                        <td>Mark</td>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>Otto</td> 
+                        <!-- <td>
+                            <button mat-mini-fab ><mat-icon class="text-danger">delete</mat-icon></button>
+                        </td> -->
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
             </div>
        </div>
     </section>

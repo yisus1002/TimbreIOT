@@ -1,1 +1,44 @@
-<p>login works!</p>
+<div class="container-fluid h-100 bg-login" style="display: flex; align-items: center; justify-content: center;">
+    <div class="container d-flex " style="justify-content: center; margin: auto;">
+        <form 
+            [formGroup]="formu"
+            (ngSubmit)="login()"
+            autocomplete="none-"
+            class="slide-in-blurred-top border-0 card p-3 rounded-4 col col-11 col-sm-10 col-md-6 shadow">
+            <div class="">
+                <img src="https://plataformas.datasistemasweb.com/pvictoriamanzur/webroot/img/escudo_colegio.png" class="shadow col col-4 img-thumbnail" alt="">
+                <h1 class="text-center text-shadow-drop-centerd  " style="font-weight: 900; color: rgb(5, 116, 252);">Bienvenido</h1>
+                <p class="h5" style="color: rgb(5, 116, 252);">IE Victoria Mansur</p>
+            </div>
+            <div class="d-flex" style="flex-direction: column;" >
+                <div class="example-container">
+                    <mat-form-field class="col-12" appearance="fill">
+                      <mat-label>Ingrese su correo</mat-label>
+                      <input formControlName="email"
+                            matInput
+                             placeholder="Usuario2000@example.com">
+                      <mat-error *ngIf="emailNoValid" >Correo invalido</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-12" appearance="fill">
+                        <mat-label>Ingrese su contraseña</mat-label>
+                        <input 
+                                formControlName="password"
+                                matInput
+                                [type]="hide ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                      </mat-form-field>
+                  </div>
+            </div>
+            <div class="d-flex col-12 justify-content-center">
+                <button type="submit" class="btn btn-ingresar">
+                    Ingresar
+                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
+                    </svg>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

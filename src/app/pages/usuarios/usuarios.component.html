@@ -15,24 +15,14 @@
                     <table mat-table 
                      [dataSource]="dataSource" matSort>
                    
-                      <ng-container matColumnDef="Nombre 1">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre 1</th>
+                      <ng-container matColumnDef="Nombres">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombres</th>
                         <td mat-cell *matCellDef="let Usuarios"> {{Usuarios?.PID}} </td>
                       </ng-container>
                  
-                      <ng-container matColumnDef="Nombre 2">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header >Nombre 2</th>
+                      <ng-container matColumnDef="Apellidos">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header >Apellidos</th>
                         <td mat-cell *matCellDef="let  Usuarios"> {{ Usuarios?.nombreDeImagen}} </td>
-                      </ng-container>
-                 
-                      <ng-container matColumnDef="Apellido 1">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellido 1</th>
-                        <td mat-cell *matCellDef="let  Usuarios"> {{ Usuarios?.nombreDeUsuario}} </td>
-                      </ng-container>
-                 
-                      <ng-container matColumnDef="Apellido 2">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellido 2</th>
-                        <td mat-cell *matCellDef="let  Usuarios"> {{ Usuarios?.nombreDeSesion}} </td>
                       </ng-container>
                    
                       <ng-container matColumnDef="Correo">

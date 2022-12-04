@@ -10,10 +10,8 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class UsuariosComponent implements OnInit, AfterContentInit {
   displayedColumns: string[] =[
-    'Nombre 1',
-    'Nombre 2',
-    'Apellido 1',
-    'Apellido 2',
+    'Nombres',
+    'Apellidos',
     'Correo',
     'Opciones'
   ];
