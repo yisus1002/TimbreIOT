@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -10,7 +11,8 @@ export class LoginComponent implements OnInit {
   
   formu!:FormGroup;
   hide = true;
-  constructor(private form: FormBuilder,) { }
+  constructor(private form: FormBuilder,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -40,7 +42,7 @@ export class LoginComponent implements OnInit {
       })
     }else{ 
       console.log(this.formu.value);
-      
+      this.router.navigate(['/home'])
       // this._sAuth.getToken(this.formu.value.email, this.formu.value.password);
     }
   }
