@@ -13,6 +13,8 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AvatarComponent } from './shared/avatar/avatar.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import { ToastrModule } from 'ngx-toastr';
+// import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,12 @@ import { UsuariosComponent } from './pages/usuarios/usuarios.component';
     MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule, 
+    ToastrModule.forRoot({
+      timeOut: 2500,
+      progressBar: true,
+
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

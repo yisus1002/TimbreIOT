@@ -1,6 +1,8 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
+import { ControlersService } from 'src/app/services/parent/controlers.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,9 @@ export class LoginComponent implements OnInit {
   formu!:FormGroup;
   hide = true;
   constructor(private form: FormBuilder,
-              private router: Router) { }
+              private router: Router,
+              public _sAuth   : AuthService,
+              private _sCtrl   : ControlersService,) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -41,9 +45,10 @@ export class LoginComponent implements OnInit {
         controls.markAllAsTouched()
       })
     }else{ 
-      console.log(this.formu.value);
+      console.log(this.formu.value?.email);
+      console.log(this.formu.value?.password);
       this.router.navigate(['/home'])
-      // this._sAuth.getToken(this.formu.value.email, this.formu.value.password);
+      this._sAuth.getToken(this.formu.value?.email, this.formu.value?.password);
     }
   }
 }
