@@ -32,11 +32,12 @@
                   </div>
             </div>
             <div class="d-flex col-12 justify-content-center">
-                <button type="submit" class="btn btn-ingresar">
-                    Ingresar
-                    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <button type="submit" [disabled]="_sAuth.habilitar" class="btn btn-ingresar">
+                    <span  *ngIf="_sAuth.habilitar===false" >Ingresar <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                         <path fill="currentColor" d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
                     </svg>
+                    </span>
+                    <i *ngIf="_sAuth.habilitar" class="fa-2x fa-solid fa-spinner fa-spin-pulse fa-spin-reverse"></i>
                 </button>
             </div>
         </form>
