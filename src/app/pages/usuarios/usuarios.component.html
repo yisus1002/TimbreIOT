@@ -1,24 +1,25 @@
 <div class="container-fluid p-2">
-    <section class="container">
+    <section class="contain p-0" style="margin: 0 auto;">
         <h1 class="text-center">Usuarios permitidos</h1>
-        <div class="d-flex my-1" 
+        <div class="d-flex container my-1" 
             style="justify-content: end;" 
+
+            >
+            <button class="btn btn-primary"
             data-bs-toggle="modal" 
             data-bs-target="#ModalUser"
-            (click)="agregar()"
-            >
-            <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Agregar Usuario</button>
+            (click)="_sctr.agregar()"><i class="fa-solid fa-plus"></i> Agregar Usuario</button>
         </div>
-        <div class="container shadow">
+        <div class="container  shadow">
             <mat-form-field appearance="standard" >
-                <mat-label style="color: #ffff;">Filter</mat-label>
+                <mat-label style="color: rgb(238, 0, 0);">Filtrar</mat-label>
                 <input  matInput (keyup)="applyFilter($event)" placeholder="Buscar ..." #input>
               </mat-form-field>
 
               <div class="mat-elevation-z8 " tabindex="0" >
                 <div class="example-container" >
                     <table mat-table 
-                     [dataSource]="dataSource" matSort>
+                     [dataSource]="_sctr.dataSource" matSort>
                    
                       <ng-container matColumnDef="name">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombres</th>
@@ -29,28 +30,31 @@
                         <th mat-header-cell *matHeaderCellDef mat-sort-header >Apellidos</th>
                         <td mat-cell *matCellDef="let  Usuarios"> {{ Usuarios?.lastName}} </td>
                       </ng-container>
+
+                      <ng-container matColumnDef="rol">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header >Rol</th>
+                        <td mat-cell *matCellDef="let  Usuarios"> {{ Usuarios?.role}} </td>
+                      </ng-container>
                    
                       <ng-container matColumnDef="email">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>Correo</th>
                         <td mat-cell *matCellDef="let  Usuarios"> {{ Usuarios?.email}} </td>
                       </ng-container>
+                      <ng-container matColumnDef="password">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Contraseña</th>
+                        <td mat-cell *matCellDef="let  Usuarios"> {{ Usuarios?.password.slice(0,8) | contrasena }} </td>
+                      </ng-container>
             
                       <ng-container matColumnDef="Opciones">
                         <th mat-header-cell *matHeaderCellDef>Opciones</th>
                         <td align="center" mat-cell *matCellDef="let  Usuarios; let i = index;">
-                          <!-- {{i+1}} -->
-                          <!-- <mat-checkbox
-                                        (click)="$event.stopPropagation();seleccc(Usuarios)"
-                                        (change)="$event ? _contr.selection.toggle(Usuarios) : null"
-                                        [checked]="_contr.selection.isSelected(Usuarios)" >
-                          </mat-checkbox> -->
                           <div class="d-flex px-1">
-                            <button type="button"  mat-icon-button class="btn "
+                            <button   class="btn" color="primary" (click)="_sctr.editar(Usuarios)" type="button"  mat-icon-button class="btn "
                             data-bs-toggle="modal" 
                             data-bs-target="#ModalUser">
                               <mat-icon>edit</mat-icon>
                             </button>
-                            <button type="button" mat-icon-button class="btn ">
+                            <button class="btn" color="warn" (click)="_sctr.eliminar(Usuarios)" type="button" mat-icon-button class="btn ">
                               <mat-icon>delete</mat-icon>
                             </button>
                           </div>
@@ -66,81 +70,14 @@
                     </table>
                 </div>
 
-                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"
+                                showFirstLastButtons
+                               aria-label="Select page of users">
+                </mat-paginator>
                 
               </div>
 
         </div>
     </section>
 </div>
-
-<!-- Modal -->
-<div class="modal fade" id="ModalUser" tabindex="-1" aria-labelledby="ModalUserLabel" aria-hidden="true">
-  <div class="modal-dialog ">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="ModalUserLabel">{{nameform}} usuario</h1>
-        <button type="button" mat-icon-button class="btn" data-bs-dismiss="modal" aria-label="Close">  <mat-icon class="text-danger">close</mat-icon></button>
-      </div>
-      <form [formGroup]="formu"
-      (ngSubmit)="enviar()"
-            autocomplete="none-"
-          class="modal-body col col-12 d-flex justify-content-center"
-           style="align-items: center; flex-direction: column;"
-           >
-           <div class="container">
-            
-        <div class="col d-flex flex-wrap flex-sm-nowrap col-12 justify-content-center " style="align-items: center;">
-          <mat-form-field  appearance="fill" class="">
-            <mat-label>Ingrese el nombre</mat-label>
-            <input  
-                  autocomplete="none-"
-                  formControlName="name"
-                  matInput type="text">
-            <mat-error *ngIf="nameNoValid">Este campo es invalido</mat-error>
-          </mat-form-field>
-          <mat-form-field  appearance="fill" class="">
-            <mat-label>Ingrese los apellidos</mat-label>
-            <input 
-                  autocomplete="none-"
-                  formControlName="lastName"
-                   matInput type="text">
-            <mat-error *ngIf="lastNameNoValid">Este campo es invalido</mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col d-flex flex-wrap flex-sm-nowrap col-12 justify-content-center " style="align-items: center;">
-          <mat-form-field  appearance="fill" class="">
-            <mat-label>Ingrese un correo</mat-label>
-            <input 
-                  autocomplete="none-"
-                  formControlName="email"
-                   matInput type="email">
-            <mat-error *ngIf="emailNoValid">Este campo es invalido</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="fill" class="">
-            <mat-label>Ingrese una contraseña</mat-label>
-              <input 
-                  autocomplete="none-"
-                  formControlName="password"
-                      matInput
-                      [type]="hide ? 'password' : 'text'">
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-              </button>
-              <mat-error *ngIf="passwordNoValid"></mat-error>
-          </mat-form-field>
-        </div> 
-           </div>
-      </form>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Cancelar
-        </button>
-        <button type="submit" class="btn btn-primary">
-          <span *ngIf="nameform==='Agregar'">{{nameform}}</span>
-          <span *ngIf="nameform==='Editar'">Guardar</span>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+<app-formulario></app-formulario>

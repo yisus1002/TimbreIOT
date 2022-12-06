@@ -1,3 +1,5 @@
+import { FormularioComponent } from './shared/formulario/formulario.component';
+import { ContrasenaPipe } from './pipes/contrasena.pipe';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,7 +16,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AvatarComponent } from './shared/avatar/avatar.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { ToastrModule } from 'ngx-toastr';
-// import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,8 @@ import { ToastrModule } from 'ngx-toastr';
     PerfilComponent,
     AvatarComponent,
     UsuariosComponent,
+    ContrasenaPipe,
+    FormularioComponent,
   ],
   imports: [
     BrowserModule,

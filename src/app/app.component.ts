@@ -1,3 +1,4 @@
+import { ControlersService } from 'src/app/services/parent/controlers.service';
 import { Component } from '@angular/core';
 import { NavigationEnd, Router, Event } from '@angular/router';
 
@@ -8,21 +9,7 @@ import { NavigationEnd, Router, Event } from '@angular/router';
 })
 export class AppComponent {
   title = 'agroIot';
-  currentRoute?:string;
-  constructor(public router: Router){
-    this.verificarRuta();
-
-  }
-  verificarRuta(){
-    this.router.events.subscribe((event: Event) => {
-            
-      if (event instanceof NavigationEnd) {
-          this.currentRoute = event.url;
-            console.log(this.currentRoute);
-
-      }
-      // console.log(this.currentRoute)
-  });
+  constructor(public _sctr: ControlersService){ 
   }
 
 }

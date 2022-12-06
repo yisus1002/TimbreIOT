@@ -7,29 +7,43 @@
               <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px; ">
                 <img src="https://i.ibb.co/9Y9fY0b/profile.png"
                   alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2 border-0 shadow"
-                  style="width: 150px; z-index: 1">
+                  style="width: 150px; z-index: 0">
               </div>
               <div class="ms-3 p-2 rounded-3" style="margin-top: 130px; background-color: rgb(0, 0, 0);">
-                <p>Jesus David</p>
-                <p>Garcia Hernandez</p>
+                <p>{{_sctr.user?.name}}</p>
+                <p>{{_sctr.user?.lastName}}</p>
               </div>
             </div>
             <div class="p-4 text-black" style="background-color: #f8f9fa;">
               <div class="d-flex justify-content-end text-center py-1">
-                <p>Yisusgarcia1002@gmail.com</p>
+                <p>{{_sctr.user?.email}}</p>
               </div>
-              <button mat-stroked-button
-              type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
-                style="z-index: 1;">
+              <button type="button"
+              data-bs-toggle="modal" 
+              data-bs-target="#ModalUser" mat-stroked-button
+              type="button"
+              (click)="_sctr.editar(_sctr.user)"
+              class="btn btn-outline-dark" data-mdb-ripple-color="dark"
+                style="z-index: 0;">
                 <i class="fa-sharp fa-solid fa-gears"></i>
                 Editar perfil
               </button>
             </div>
             <div class="card-body p-1 text-black">
-                <p class="text-center" style="color: rgb(74, 74, 240);">Ultima actualización el 12/2/22, 1:07 AM</p>
+              <div class="col my-4 d-flex" style="justify-content: center;">
+                <button 
+                      (click)="eliminarCuenta()"
+                      type="button"
+                      mat-button color="warn" 
+                      class="border my-1" 
+                >Eliminar cuenta
+                </button>
+              </div>
+                <p class="text-center" style="color: rgb(74, 74, 240);">Ultima actualización el {{_sctr.user?.updatedAt| date:'short'}}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+  <app-formulario></app-formulario>

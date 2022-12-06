@@ -1,0 +1,85 @@
+<!-- Modal -->
+<div class="modal fade" id="ModalUser" tabindex="-1" aria-labelledby="ModalUserLabel" aria-hidden="true">
+    <form [formGroup]="_sctr.formu"
+    (ngSubmit)="_sctr.enviar()" class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="ModalUserLabel">{{_sctr.nameform}} usuario</h1>
+          <button type="button" mat-icon-button class="btn" data-bs-dismiss="modal" aria-label="Close">  <mat-icon class="text-danger">close</mat-icon></button>
+        </div>
+        <div 
+              autocomplete="none-"
+            class="modal-body col col-12 d-flex justify-content-center"
+             style="align-items: center; flex-direction: column;"
+             >
+             <div class="container">
+              
+          <div class="col d-flex flex-wrap flex-sm-nowrap col-12 justify-content-center " style="align-items: center;">
+            <mat-form-field  appearance="fill" class="">
+              <mat-label>Ingrese el nombre</mat-label>
+              <input  
+                    autocomplete="none-"
+                    formControlName="name"
+                    matInput type="text">
+              <mat-error *ngIf="_sctr.nameNoValid">Este campo es invalido</mat-error>
+            </mat-form-field>
+            <mat-form-field  appearance="fill" class="">
+              <mat-label>Ingrese los apellidos</mat-label>
+              <input 
+                    autocomplete="none-"
+                    formControlName="lastName"
+                     matInput type="text">
+              <mat-error *ngIf="_sctr.lastNameNoValid">Este campo es invalido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col d-flex flex-wrap flex-sm-nowrap col-12 justify-content-center " style="align-items: center;">
+            <mat-form-field  appearance="fill" class="">
+              <mat-label>Ingrese un correo</mat-label>
+              <input 
+                    autocomplete="none-"
+                    formControlName="email"
+                     matInput type="email">
+              <mat-error *ngIf="_sctr.emailNoValid">Este campo es invalido</mat-error>
+            </mat-form-field> 
+              <mat-form-field *ngIf="(_sctr.currentRoute==='/perfil' && _sctr.user?.role==='ADMIN') || _sctr.currentRoute==='/usuarios'" class="example-full-width"appearance="fill">
+                <mat-label>Seleccione un rol</mat-label>
+                <mat-select style="position: relative;" formControlName="role" name="catalog">
+                  <mat-option  z-index="1056" *ngFor="let user of _sctr.rol" [value]="user?.role">
+                    {{user?.role}}
+                  </mat-option>                 
+                </mat-select> 
+              </mat-form-field> 
+          </div> 
+          <div class="col d-flex flex-wrap  col-12 justify-content-center " style="flex-direction: column;align-items: center;position: relative!important;">
+            <mat-form-field *ngIf="_sctr.editarC" appearance="fill" class="">
+              <mat-label>Ingrese una contraseña</mat-label>
+                <input 
+                    autocomplete="none-"
+                    formControlName="password"
+                        matInput
+                        [type]="_sctr.hide ? 'password' : 'text'">
+                <button type="button" mat-icon-button matSuffix (click)="_sctr.hide = !_sctr.hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="_sctr.hide">
+                    <mat-icon>{{_sctr.hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="_sctr.passwordNoValid"></mat-error>
+            </mat-form-field>
+            <button *ngIf="_sctr.nameform==='Editar'" (click)="_sctr.cambiarContrasena()" type="button" class=" d-flex btn btn-sm" style="margin: 0 auto;"  mat-raised-button color="primary">
+              <span *ngIf="_sctr.changeC===false">Cambiar contraseña</span>
+              <span *ngIf="_sctr.changeC">No cambiar contraseña</span>
+            </button>
+          </div>
+             </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+          <button [disabled]="_sctr.formu.invalid" type="submit" class="btn btn-primary">
+            <span *ngIf="_sctr.nameform==='Agregar'">{{_sctr.nameform}}</span>
+            <span *ngIf="_sctr.nameform==='Editar'">Guardar</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  

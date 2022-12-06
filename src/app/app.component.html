@@ -1,7 +1,7 @@
 <div class="sticky-footer">
-  <app-navbar class="sticky-footer__header" *ngIf="currentRoute!='/login'"></app-navbar>
+  <app-navbar class="sticky-footer__header" *ngIf="_sctr.currentRoute!='/login'"></app-navbar>
   <div class="sticky-footer__main">
     <router-outlet></router-outlet>
   </div>
-  <app-footer class="sticky-footer__footer" *ngIf="currentRoute!='/login'"></app-footer>
+  <app-footer class="sticky-footer__footer" *ngIf="_sctr.currentRoute!='/login'"></app-footer>
 </div>
