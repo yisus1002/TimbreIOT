@@ -1,6 +1,6 @@
 import { ControlersService } from 'src/app/services/parent/controlers.service';
 import { Component } from '@angular/core';
-import { NavigationEnd, Router, Event } from '@angular/router';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +8,12 @@ import { NavigationEnd, Router, Event } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'agroIot';
-  constructor(public _sctr: ControlersService){ 
+  constructor(public _sctr: ControlersService, private permissionsService: NgxPermissionsService ){ 
+  
+    const role =localStorage.getItem('role');
+    if(role==='ADMIN'){
+      this.permissionsService.loadPermissions([`${role}`]);
+    }
   }
 
 }

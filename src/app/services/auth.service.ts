@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize, Observable } from 'rxjs';
 import { ParentService } from './parent/parent.service';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class AuthService {
   constructor(private http:HttpClient,
               private router: Router, 
               private _sCtrl: ControlersService,
-              private __Parent: ParentService,) { 
+              private __Parent: ParentService,
+              private permissionsService: NgxPermissionsService) { 
                 this._sCtrl.leerToken(); 
               }
 
@@ -33,11 +35,9 @@ export class AuthService {
     this.habilitar=false;
   }))
   .subscribe({
-    next: (data:any)=>{
-      console.log(data);
-      
+    next: (data:any)=>{  
       this.idUser=data?.user?.id;
-      this.saveToken(data?.token, this.idUser);
+      this.saveToken(data?.token, this.idUser, data?.user?.role);
       this.router.navigate(['/home'])
 
     },
@@ -52,10 +52,19 @@ export class AuthService {
 }
 
 
-saveToken(token:string, id:number){
+saveToken(token:string, id:number,role:any){
   this._sCtrl.token =token;
   localStorage.setItem('token', token);
   localStorage.setItem('id', id.toString());
+
+  if(role==="ADMIN"){
+    localStorage.setItem('role', role);
+    const perm = ["ADMIN"];
+    this.permissionsService.loadPermissions(perm);
+  }else{
+    localStorage.setItem('role', role);
+  }
+
   let hoy = new Date();
   hoy.setSeconds(86400);
   localStorage.setItem('expira', hoy.getTime().toString())

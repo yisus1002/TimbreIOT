@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AvatarComponent } from './shared/avatar/avatar.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule, 
+    NgxPermissionsModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 2500,
       progressBar: true,
