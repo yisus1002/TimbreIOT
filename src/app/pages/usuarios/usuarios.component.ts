@@ -69,7 +69,7 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
           this.permissionsService.loadPermissions([`${this.usuario?.role}`]);
     this._sctr.getUsers();
         }else{
-          this.permissionsService.loadPermissions([`${this.usuario?.role}`]);
+          // this.permissionsService.loadPermissions([`${this.usuario?.role}`]);
           this.router.navigate(['/'])
         }
       },

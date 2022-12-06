@@ -1,3 +1,4 @@
+import { NgxPermissionsService } from 'ngx-permissions';
 import { Injectable, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
@@ -46,6 +47,7 @@ public rol:any[]=[
     private _sUser: UsuarioService,
     private toastr: ToastrService,
     private form: FormBuilder,
+    private permissionsService: NgxPermissionsService,
     ) {
       this.verificarRuta()
      }
@@ -190,7 +192,13 @@ public rol:any[]=[
         next:(data:any)=>{  
           this.user=data?.user 
           console.log(this.user);
-          
+          localStorage.setItem('role', this.user?.role); 
+          if(this.user?.role==='ADMIN'){
+            this.permissionsService.loadPermissions([`${this.user?.role}`]);
+          }else{
+            // this.permissionsService.loadPermissions([`${this.user?.role}`]);
+            // this.router.navigate(['/'])
+          }
         },
         error: (error:any)=>{
           if(error?.error?.msg){
