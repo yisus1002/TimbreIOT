@@ -17,6 +17,10 @@ import { AvatarComponent } from './shared/avatar/avatar.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { LOCALE_ID } from '@angular/core';
+
+const lang = 'en-US';
 
 @NgModule({
   declarations: [
@@ -38,7 +42,8 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule, 
+    BrowserAnimationsModule,
+    NgxMaterialTimepickerModule.setLocale('ar-AE'),
     NgxPermissionsModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 2500,
@@ -46,7 +51,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 
     }),
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: lang }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

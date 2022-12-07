@@ -1,15 +1,28 @@
 <div class="container-fluid pt-2 px-0">
     <section class="container">
         <h1  class="text-center bold">Control para el timbre</h1>
-        <div class="shadow rounded-4">
+        <div class="shadow rounded-4 mb-3">
           <h2 style="font-size: 16px; " class="text-center m-0 pt-3">Horario de clases de lunes a viernes</h2>
           <div class="d-flex  px-2 d-flex flex-wrap justify-content-between" style="align-items: center;">
             <div class="d-flex my-1" style="justify-content: space-between;">
-              <button class="btn btn-sm text-center mx-3 px-1 pt-0 my-0 rounded-4 text-wrap bg-success" mat-button color="primary" style="font-size: 14px;" >Tocar timbre</button>
-              <button class="btn btn-sm text-center mx-3 px-1 pt-0 my-0 rounded-4 text-wrap bg-danger" mat-button color="warn" style="font-size: 14px;">Desactivar timbre</button>  
+              <button type="button"  (click)="tocarTimbre()"
+                    class="btn btn-sm text-center mx-3 px-1 pt-0 my-0 rounded-4 text-wrap bg-success"
+                    mat-button color="primary" 
+                    style="font-size: 14px;" >
+                    Tocar timbre
+              </button>
+              <button type="button" (click)="cambiarEstado()"
+                    class="btn btn-sm text-center mx-3 px-1 pt-0 my-0 rounded-4 text-wrap bg-danger"
+                    mat-button color="warn" 
+                    style="font-size: 14px;">
+                    <span *ngIf="activar">Desactivar timbre</span>
+                    <span *ngIf="!activar">Activar timbre</span>
+              </button>  
             </div>
             <div class="d-flex my-1" style="justify-content: space-between;">
-              <button class="btn btn-sm  btn-editar scale-in-center">
+              <button type="button"
+                (click)="editar=true"  
+                *ngIf="editar===false" class="btn btn-sm  btn-editar scale-in-center">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -18,34 +31,73 @@
                     <path fill="currentColor" d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
                 </svg> 
               </button>
-              <button class="btn btn-sm text-center mx-3 px-1 pt-0 my-0 rounded-4 text-wrap bg-danger" mat-button >Cancelar</button>
+              <button *ngIf="editar"
+              (click)="enviar()" 
+              type="submit"
+              class="btn btn-sm text-center mx-3 px-1 pt-0 my-0 rounded-4 text-wrap bg-success">Guardar</button>
+              <button type="button"
+                (click)="editar=false"  
+                *ngIf="editar" class="btn btn-sm text-center mx-3 px-1 pt-0 my-0 rounded-4 text-wrap bg-danger" mat-button >Cancelar</button>
             </div>
             </div>
-          <div class="col-12 colsm-10 col-md-9 mt-2" style="margin: 0 auto;">
-              <div class="table-responsive">
+          <div
+              class="col-12 colsm-10 col-md-9 mt-2" style="margin: 0 auto;">
+              <form *ngIf="editar" 
+                    [formGroup]="formu"
+                    class="table-responsive">
                 <table class="table " >
                   <thead class="table-dark">
                     <tr> 
                         <th >Hora de inicio</th>
-                        <th >Hora de fin</th> 
-                        <th >Descripción</th>
+                        <th >Hora de fin</th>
                         <th >Opciones</th>
                       </tr>
                     </thead>
+                    <tbody formArrayName="horario">
+                      <tr *ngFor="let item of getCtrl('horario', formu)?.controls; index as indexFormChildPrice"
+                      [formGroupName]="indexFormChildPrice"
+                      > 
+                        <td class="p-1"> 
+                            <ngx-timepicker-field [format]="24" [defaultTime]="'00:00'" formControlName="hi" ></ngx-timepicker-field>
+                        </td>
+                        <td class="p-1"> 
+                            <ngx-timepicker-field [format]="24" [defaultTime]="'00:00'" formControlName="hf" ></ngx-timepicker-field>
+                        </td>
+                        <td class="p-1">
+                          <button (click)="delHora(indexFormChildPrice)" type="button" mat-mini-fab ><mat-icon class="text-danger">delete</mat-icon></button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="d-grid p-0 my-0">
+                    <button
+                        (click)="addHora()"
+                        type="button" mat-button class="btn mb-2"  style="background-color: rgb(0, 255, 238);"
+                        type="button" >
+                        <i class="fa-solid fa-plus"></i> Agregar hora
+                    </button> 
+                  </div>
+              </form>
+              <div *ngIf="!editar" class="table-responsive">
+                <table class="table " >
+                  <thead class="table-dark">
+                    <tr >
+                        <th >Hora de inicio</th>
+                        <th >Hora de fin</th>
+                      </tr>
+                    </thead>
                     <tbody>
-                      <tr> 
-                        <td>Mark</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>Otto</td> 
-                        <!-- <td>
-                            <button mat-mini-fab ><mat-icon class="text-danger">delete</mat-icon></button>
-                        </td> -->
+                      <tr *ngFor="let item of horari"> 
+                        <td class="p-1 px-2">{{item?.hi}}
+                        </td>
+                        <td class="p-1 px-2">{{item?.hf}}
+                        </td>
                       </tr>
                     </tbody>
                   </table>
               </div>
-            </div>
+          </div>
        </div>
     </section>
 </div>
+

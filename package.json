@@ -24,6 +24,7 @@
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
     "jquery": "^3.6.1",
+    "ngx-material-timepicker": "^5.5.3",
     "ngx-permissions": "^14.0.0",
     "ngx-toastr": "^15.2.2",
     "rxjs": "~7.5.0",
