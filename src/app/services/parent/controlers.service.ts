@@ -190,8 +190,8 @@ public rol:any[]=[
       }))
       .subscribe({
         next:(data:any)=>{  
-          this.user=data?.user 
-          console.log(this.user);
+          this.user=data?.user;
+          // console.log(this.user);
           localStorage.setItem('role', this.user?.role); 
           if(this.user?.role==='ADMIN'){
             this.permissionsService.loadPermissions([`${this.user?.role}`]);
@@ -284,7 +284,7 @@ public rol:any[]=[
             
       if (event instanceof NavigationEnd) {
           this.currentRoute = event.url;
-            console.log(this.currentRoute);
+            // console.log(this.currentRoute);
       }
   });
   }
