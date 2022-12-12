@@ -3,6 +3,8 @@ import { ControlersService } from './../../services/parent/controlers.service';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TimbreService } from 'src/app/services/timbre.service';
+import Swal from 'sweetalert2';
+import { HtmlParser } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',
@@ -55,6 +57,18 @@ export class HomeComponent implements OnInit {
     this.tocar=true;
     if(this.tocar){
       console.log('Timbre tocado');
+Swal.fire({
+  title: 'Tocando timbre!',
+  icon: 'success',
+  html: '<ng-container style="margin:0;"><i class="fa-solid fa-stopwatch fa-shake" style="font-size: 50px; color: rgb(255, 0, 0);"></i></ng-container>',
+  timer: 5000,
+  heightAuto:true,
+  timerProgressBar: true,
+  showConfirmButton: false,
+  showCancelButton: false,
+  backdrop:true,
+
+})
     }
     
   }
