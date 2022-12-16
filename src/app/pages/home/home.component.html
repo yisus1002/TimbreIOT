@@ -5,7 +5,7 @@
           <h2 style="font-size: 16px; " class="text-center m-0 pt-3">Horario de clases de lunes a viernes</h2>
           <div class="d-flex  px-2 d-flex flex-wrap justify-content-between" style="align-items: center;">
             <div class="d-flex my-1" style="justify-content: space-between;">
-              <button type="button"  (click)="tocarTimbre()"
+              <button *ngIf="!activar" type="button"  (click)="tocarTimbre()"
                     class="btn btn-sm text-center mx-3 px-1 pt-0 my-0 rounded-4 text-wrap bg-success"
                     mat-button color="primary" 
                     style="font-size: 14px;" >
@@ -15,8 +15,8 @@
                     class="btn btn-sm text-center mx-3 px-1 pt-0 my-0 rounded-4 text-wrap bg-danger"
                     mat-button color="warn" 
                     style="font-size: 14px;">
-                    <span *ngIf="activar">Desactivar timbre</span>
-                    <span *ngIf="!activar">Activar timbre</span>
+                    <span *ngIf="!activar">Desactivar timbre</span>
+                    <span *ngIf="activar">Activar timbre</span>
               </button>  
             </div>
             <div class="d-flex my-1" style="justify-content: space-between;">

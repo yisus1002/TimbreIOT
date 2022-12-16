@@ -4,8 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TimbreService } from 'src/app/services/timbre.service';
 import Swal from 'sweetalert2';
-import { HtmlParser } from '@angular/compiler';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -14,36 +12,22 @@ import { HtmlParser } from '@angular/compiler';
 export class HomeComponent implements OnInit {
 
   public activar:boolean=true;
-  public tocar:boolean=false;
+  public tocar:boolean=true;
   public editar:boolean=false;
   
   public formu!:    FormGroup;
   // public schedules: any; 
   public scheduleId: any; 
-  da:any[]=[
-    {
-        "end_time": "02:00",
-        "start_time": "11:01"
-    },
-    {
-        "end_time": "03:20",
-        "start_time": "02:17"
-    }
-]
-  public horari:any[]=[
-    // { start_time: '08:00', end_time: '09:00',},
-    // { start_time: '09:00', end_time: '10:00',},
-    // { start_time: '10:00', end_time: '11:00',},
-    // { start_time: '11:00', end_time: '12:00',},
-    // { start_time: '12:00', end_time: '13:00',},
-  ];
+  da:any[]=[];
+  public horari:any[]=[];
 
   constructor( 
               private form     : FormBuilder,
               private _sCtr    : ControlersService,
               private _sTmb    : TimbreService,
                 ) {
-    this.getHorarios();
+    // this.getHorarios();
+    this.getHs();
     
    }
 
@@ -55,6 +39,8 @@ export class HomeComponent implements OnInit {
   get horario(){   return this.formu.get('horario') as FormArray};
   tocarTimbre(){
     this.tocar=true;
+    this.putH(this.scheduleId, {tocar: true});
+    // this.tocar=false;
     if(this.tocar){
       console.log('Timbre tocado');
 Swal.fire({
@@ -75,6 +61,8 @@ Swal.fire({
 
   cambiarEstado(){
     this.activar=!this.activar;
+    this.putH(this.scheduleId, {activo: this.activar})
+
   }
 
   createform(){
@@ -96,9 +84,12 @@ Swal.fire({
       this.editar=false;
       let hora:any[]=this.formu.value?.horario;
       let horario ={
-        schedule:hora
+        // schedule:hora
+        schedules:hora
       }
-      this.putHoratioId(this.scheduleId, horario)
+      // this.putHoratioId(this.scheduleId, horario)
+      this.putH(this.scheduleId, horario);
+      this._sCtr.showToastr_success('Horario actualizado')
     }
   }
   loadForm(schedule:any[]){
@@ -218,5 +209,104 @@ Swal.fire({
       }
     })
   }
+// --------------------------------------------------------------------------------------
+  getHs(){
+    this._sTmb.getHorario()
+    .pipe(finalize(()=>{
+      // this.getHId(this.scheduleId)
+    }))
+    .subscribe({
+      next: (data:any)=>{
+        // console.log(data);
+        console.log(data[0]);
+        this.activar=data[0]?.activo;
+        this.scheduleId= data[0]?.id;
+        this.horari=data[0]?.schedules;
+        this.loadForm(this.horari);
+      },
+      error: (error:any)=>{
+        if(error?.error?.msg){
+          this._sCtr.showToastr_error((error?.error?.msg).toString())
+        }else{
+          this._sCtr.showToastr_error(error?.message)
+        }
+      }
+    })
+  }
+  getHId(id:any){
+    this._sTmb.getHorarioId(id)
+    .pipe(finalize(()=>{
+    }))
+    .subscribe({
+      next: (data:any)=>{
+        console.log(data);
+        
+      },
+      error: (error:any)=>{
+        if(error?.error?.msg){
+          this._sCtr.showToastr_error((error?.error?.msg).toString())
+        }else{
+          this._sCtr.showToastr_error(error?.message)
+        }
+      }
+    })
+  }
+
+  postH(horario:any){
+    this._sTmb.postHorario(horario)
+    .pipe()
+    .subscribe({
+      next: (data:any)=>{
+        
+      },
+      error: (error:any)=>{
+        if(error?.error?.msg){
+          this._sCtr.showToastr_error((error?.error?.msg).toString())
+        }else{
+          this._sCtr.showToastr_error(error?.message)
+        }
+      }
+    })
+  }
+
+  putH(id:any,horario:any){
+    this._sTmb.putHorario(id, horario)
+    .pipe(finalize(()=>{
+      this.getHs();
+    }))
+    .subscribe({
+      next: (data:any)=>{
+        // if(this.tocar){
+          // this._sCtr.showToastr_success('Horario actualizado')
+        // }
+        
+      },
+      error: (error:any)=>{
+        if(error?.error?.msg){
+          this._sCtr.showToastr_error((error?.error?.msg).toString())
+        }else{
+          this._sCtr.showToastr_error(error?.message)
+        }
+      }
+    })
+  }
+  delteH(id:any){
+    this._sTmb.deletHorario(id)
+    .pipe()
+    .subscribe({
+      next: (data:any)=>{
+      },
+      error: (error:any)=>{
+        if(error?.error?.msg){
+          this._sCtr.showToastr_error((error?.error?.msg).toString())
+        }else{
+          this._sCtr.showToastr_error(error?.message)
+        }
+      }
+    })
+  }
+  // --------------------------------------------------------------------------------------------------------
+
+
 
 }
