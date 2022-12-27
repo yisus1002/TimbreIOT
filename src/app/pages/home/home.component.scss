@@ -47,9 +47,14 @@ cursor: pointer;
     background: linear-gradient(90deg, transparent, #03e9f4);
     animation: btn-anim1 1s linear infinite;
 }  
+
 // .swal2-html-container{
 //     height: 80vh!important;
 // }
+:host ::ng-deep .mat-form-field-wrapper {
+    // background-color: red;
+    // padding: ;
+}
 :host ::ng-deep .sweet-alert .swal-text {
     max-height: 400px!important; /* To be adjusted as you like */
     overflow-y: hidden!important;

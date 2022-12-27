@@ -20,6 +20,13 @@ export class HomeComponent implements OnInit {
   public scheduleId: any; 
   da:any[]=[];
   public horari:any[]=[];
+  public tipo:any[]=[
+    {cod:"Cambio de clase"},
+    {cod:"Entrada"},
+    {cod:"Salida"},
+    {cod:"Descanso"},
+    // {cod:""},
+  ]
 
   constructor( 
               private form     : FormBuilder,
@@ -96,7 +103,7 @@ Swal.fire({
     this.horari= schedule;
     this.horario.clear();
     this.horari.forEach((hora:any)=>this.horario.push(this.form.group({
-      end_time  : new FormControl(hora?.end_time),
+      tipo  : new FormControl(hora?.tipo),
       start_time: new FormControl(hora?.start_time),
     })))
   }
@@ -105,7 +112,7 @@ Swal.fire({
     this.horario.push(
       this.form.group({
         start_time : ["", [Validators.required],[]],
-        end_time   : ["", [Validators.required],[]],
+        tipo   : ["", [Validators.required],[]],
       })
     )
   }

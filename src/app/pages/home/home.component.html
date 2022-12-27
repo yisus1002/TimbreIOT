@@ -1,8 +1,9 @@
 <div class="container-fluid pt-2 px-0">
     <section class="container">
-        <h1  class="text-center bold">Control para el timbre</h1>
         <div class="shadow rounded-4 mb-3">
-          <h2 style="font-size: 16px; " class="text-center m-0 pt-3">Horario de clases de lunes a viernes</h2>
+          
+          <h1  class="text-center bold">Control para el timbre</h1>
+          <h2 style="font-size: 16px; " class="text-center m-0 pt-3">Programación del timbre de lunes a viernes</h2>
           <div class="d-flex  px-2 d-flex flex-wrap justify-content-between" style="align-items: center;">
             <div class="d-flex my-1" style="justify-content: space-between;">
               <button *ngIf="!activar" type="button"  (click)="tocarTimbre()"
@@ -49,14 +50,15 @@
             </div>
           <div
               class="col-12 colsm-10 col-md-9 mt-2" style="margin: 0 auto;">
+              <!-- <h3 class="text-center">Programación del timbre</h3> -->
               <form *ngIf="editar" 
                     [formGroup]="formu"
                     class="table-responsive">
                 <table class="table " >
                   <thead class="table-dark">
                     <tr> 
-                        <th >Hora de inicio</th>
-                        <th >Hora de fin</th>
+                        <th >Hora</th>
+                        <th >Tipo </th>
                         <th >Opciones</th>
                       </tr>
                     </thead>
@@ -67,8 +69,16 @@
                         <td class="p-1"> 
                             <ngx-timepicker-field [format]="24" [defaultTime]="'00:00'" formControlName="start_time" ></ngx-timepicker-field>
                         </td>
-                        <td class="p-1"> 
-                            <ngx-timepicker-field [format]="24" [defaultTime]="'00:00'" formControlName="end_time" ></ngx-timepicker-field>
+                        <td class="p-1">
+                          <mat-form-field  class="example-full-width"appearance="fill">
+                            <mat-label>Seleccione un tipo</mat-label>
+                            <mat-select style="position: relative;" formControlName="tipo" name="tipo">
+                              <mat-option  z-index="1056" *ngFor="let timbre of tipo " [value]="timbre?.cod">
+                                {{timbre?.cod}}
+                              </mat-option>                 
+                            </mat-select> 
+                          </mat-form-field> 
+                            <!-- <ngx-timepicker-field [format]="24" [defaultTime]="'00:00'" formControlName="end_time" ></ngx-timepicker-field> -->
                         </td>
                         <td class="p-1">
                           <button (click)="delHora(indexFormChildPrice)" type="button" mat-mini-fab ><mat-icon class="text-danger">delete</mat-icon></button>
@@ -85,19 +95,19 @@
                     </button> 
                   </div>
               </form>
-              <div *ngIf="!editar" class="table-responsive">
+              <div *ngIf="!editar" class="table-responsive px-2">
                 <table class="table " >
                   <thead class="table-dark">
                     <tr >
-                        <th >Hora de inicio</th>
-                        <th >Hora de fin</th>
+                        <th >Hora</th>
+                        <th >tipo</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let item of horari"> 
                         <td class="p-1 px-2">{{item?.start_time}}
                         </td>
-                        <td class="p-1 px-2">{{item?.end_time}}
+                        <td class="p-1 px-2">{{item?.tipo}}
                         </td>
                       </tr>
                     </tbody>
@@ -107,4 +117,3 @@
        </div>
     </section>
 </div>
-
