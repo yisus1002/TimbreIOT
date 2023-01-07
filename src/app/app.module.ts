@@ -19,6 +19,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { LOCALE_ID } from '@angular/core';
+import { LoadingComponent } from './shared/loading/loading.component';
 
 const lang = 'en-US';
 
@@ -34,6 +35,7 @@ const lang = 'en-US';
     UsuariosComponent,
     ContrasenaPipe,
     FormularioComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,

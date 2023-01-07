@@ -1,16 +1,17 @@
 <div class="container-fluid p-2">
     <section class="contain p-0" style="margin: 0 auto;">
         <h1 class="text-center">Usuarios permitidos</h1>
-        <div class="d-flex container my-1" 
-            style="justify-content: end;" 
+        <div class="d-flex container my-1"
+            style="justify-content: end;"
 
             >
             <button class="btn btn-primary"
-            data-bs-toggle="modal" 
+            data-bs-toggle="modal"
             data-bs-target="#ModalUser"
             (click)="_sctr.agregar()"><i class="fa-solid fa-plus"></i> Agregar Usuario</button>
         </div>
-        <div class="container  shadow">
+        <app-loading *ngIf="_sctr.dataSource.data.length===0"></app-loading>
+        <div class="container  shadow" *ngIf="_sctr.dataSource.data.length>0">
             <mat-form-field appearance="standard" >
                 <mat-label style="color: rgb(238, 0, 0);">Filtrar</mat-label>
                 <input  matInput (keyup)="applyFilter($event)" placeholder="Buscar ..." #input>
@@ -18,14 +19,14 @@
 
               <div class="mat-elevation-z8 " tabindex="0" >
                 <div class="example-container" >
-                    <table mat-table 
+                    <table mat-table
                      [dataSource]="_sctr.dataSource" matSort>
-                   
+
                       <ng-container matColumnDef="name">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombres</th>
                         <td mat-cell *matCellDef="let Usuarios"> {{Usuarios?.name}} </td>
                       </ng-container>
-                 
+
                       <ng-container matColumnDef="lastName">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header >Apellidos</th>
                         <td mat-cell *matCellDef="let  Usuarios"> {{ Usuarios?.lastName}} </td>
@@ -35,7 +36,7 @@
                         <th mat-header-cell *matHeaderCellDef mat-sort-header >Rol</th>
                         <td mat-cell *matCellDef="let  Usuarios"> {{ Usuarios?.role}} </td>
                       </ng-container>
-                   
+
                       <ng-container matColumnDef="email">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>Correo</th>
                         <td mat-cell *matCellDef="let  Usuarios"> {{ Usuarios?.email}} </td>
@@ -44,13 +45,13 @@
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>Contraseña</th>
                         <td mat-cell *matCellDef="let  Usuarios"> {{ Usuarios?.password.slice(0,8) | contrasena }} </td>
                       </ng-container>
-            
+
                       <ng-container matColumnDef="Opciones">
                         <th mat-header-cell *matHeaderCellDef>Opciones</th>
                         <td align="center" mat-cell *matCellDef="let  Usuarios; let i = index;">
                           <div class="d-flex px-1">
                             <button   class="btn" color="primary" (click)="_sctr.editar(Usuarios)" type="button"  mat-icon-button class="btn "
-                            data-bs-toggle="modal" 
+                            data-bs-toggle="modal"
                             data-bs-target="#ModalUser">
                               <mat-icon>edit</mat-icon>
                             </button>
@@ -60,10 +61,10 @@
                           </div>
                         </td>
                       </ng-container>
-                      
+
                       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                       <tr mat-row *matRowDef="let Usuarios; columns: displayedColumns; let i = index"></tr>
-            
+
                       <tr class="mat-row" *matNoDataRow>
                         <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
                       </tr>
@@ -74,7 +75,7 @@
                                 showFirstLastButtons
                                aria-label="Select page of users">
                 </mat-paginator>
-                
+
               </div>
 
         </div>
