@@ -14,10 +14,10 @@ export class HomeComponent implements OnInit {
   public activar:boolean=true;
   public tocar:boolean=true;
   public editar:boolean=false;
-  
+
   public formu!:    FormGroup;
-  // public schedules: any; 
-  public scheduleId: any; 
+
+  public scheduleId: any;
   da:any[]=[];
   public horari:any[]=[];
   public tipo:any[]=[
@@ -26,16 +26,23 @@ export class HomeComponent implements OnInit {
     {cod:"Salida"},
     {cod:"Descanso"},
     // {cod:""},
-  ]
+  ];
 
-  constructor( 
+  public sonara:any[]=[
+    {cod: 1},
+    {cod: 2},
+    {cod: 3},
+    // {cod: 4},
+  ];
+
+  constructor(
               private form     : FormBuilder,
               private _sCtr    : ControlersService,
               private _sTmb    : TimbreService,
                 ) {
     // this.getHorarios();
     this.getHs();
-    
+
    }
 
   ngOnInit(): void {
@@ -63,7 +70,7 @@ Swal.fire({
 
 })
     }
-    
+
   }
 
   cambiarEstado(){
@@ -79,6 +86,8 @@ Swal.fire({
   }
   enviar(){
     console.log(this.formu.valid);
+    console.log(this.formu.value);
+
     if(this.formu.invalid){
       return Object.values(this.formu.controls).forEach(controls=>{
         if(controls instanceof FormGroup){
@@ -103,8 +112,9 @@ Swal.fire({
     this.horari= schedule;
     this.horario.clear();
     this.horari.forEach((hora:any)=>this.horario.push(this.form.group({
-      tipo  : new FormControl(hora?.tipo),
       start_time: new FormControl(hora?.start_time),
+      tipo  : new FormControl(hora?.tipo),
+      sonara  : new FormControl(hora?.sonara),
     })))
   }
 
@@ -112,7 +122,8 @@ Swal.fire({
     this.horario.push(
       this.form.group({
         start_time : ["", [Validators.required],[]],
-        tipo   : ["", [Validators.required],[]],
+        tipo       : ["", [Validators.required],[]],
+        sonara     : ["", [Validators.required],[]],
       })
     )
   }
@@ -123,14 +134,14 @@ Swal.fire({
   delHora(id:any){
     this.horario.removeAt(id)
   }
-  public getCtrl(key: string, form: FormGroup) { 
-    return  (<FormArray>form.get(key)); 
+  public getCtrl(key: string, form: FormGroup) {
+    return  (<FormArray>form.get(key));
   }
 
   getHorarios(){
     this._sTmb.getShedule()
     .pipe(finalize(()=>{
-      
+
     }))
     .subscribe({
       next: (data:any)=>{
@@ -153,7 +164,7 @@ Swal.fire({
     }))
     .subscribe({
       next: (data:any)=>{
-        
+
       },
       error: (error:any)=>{
         if(error?.error?.msg){
@@ -170,7 +181,7 @@ Swal.fire({
     .pipe()
     .subscribe({
       next: (data:any)=>{
-        
+
       },
       error: (error:any)=>{
         if(error?.error?.msg){
@@ -189,7 +200,7 @@ Swal.fire({
     .subscribe({
       next: (data:any)=>{
         this._sCtr.showToastr_success('Horario actualizado')
-        
+
       },
       error: (error:any)=>{
         if(error?.error?.msg){
@@ -247,7 +258,7 @@ Swal.fire({
     .subscribe({
       next: (data:any)=>{
         console.log(data);
-        
+
       },
       error: (error:any)=>{
         if(error?.error?.msg){
@@ -264,7 +275,7 @@ Swal.fire({
     .pipe()
     .subscribe({
       next: (data:any)=>{
-        
+
       },
       error: (error:any)=>{
         if(error?.error?.msg){
@@ -286,7 +297,7 @@ Swal.fire({
         // if(this.tocar){
           // this._sCtr.showToastr_success('Horario actualizado')
         // }
-        
+
       },
       error: (error:any)=>{
         if(error?.error?.msg){

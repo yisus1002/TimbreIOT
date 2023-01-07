@@ -1,29 +1,29 @@
-<div class="container-fluid pt-2 px-0">
-    <section class="container">
-        <div class="shadow rounded-4 mb-3">
-          
-          <h1  class="text-center bold">Control para el timbre</h1>
+<div class="container-fluid pt-2 px-0 body" [style.background-image]="'url(assets/img/fondo.svg)'">
+    <section class="container ">
+        <div class="shadow rounded-4 mb-3 bg-white">
+
+          <h1  class="text-center bold pt-3">Control para el timbre</h1>
           <h2 style="font-size: 16px; " class="text-center m-0 pt-3">Programación del timbre de lunes a viernes</h2>
           <div class="d-flex  px-2 d-flex flex-wrap justify-content-between" style="align-items: center;">
-            <div class="d-flex my-1" style="justify-content: space-between;">
+            <div *ngIf="!editar" class="d-flex my-1" style="justify-content: space-between;">
               <button *ngIf="!activar" type="button"  (click)="tocarTimbre()"
                     class="btn btn-sm text-center mx-3 px-1 pt-0 my-0 rounded-4 text-wrap bg-success"
-                    mat-button color="primary" 
+                    mat-button color="primary"
                     style="font-size: 14px;" >
                     Tocar timbre
               </button>
               <button type="button" (click)="cambiarEstado()"
                     class="btn btn-sm text-center mx-3 px-1 pt-0 my-0 rounded-4 text-wrap bg-danger"
-                    mat-button color="warn" 
+                    mat-button color="warn"
                     style="font-size: 14px;">
                     <span *ngIf="!activar">Desactivar timbre</span>
                     <span *ngIf="activar">Activar timbre</span>
-              </button>  
+              </button>
             </div>
             <div class="d-flex my-1" style="justify-content: space-between;">
               <div *ngxPermissionsOnly="['ADMIN']" class="">
               <button  type="button"
-                (click)="editar=true"  
+                (click)="editar=true"
                 *ngIf="editar===false" class="btn btn-sm  btn-editar scale-in-center">
                 <span></span>
                 <span></span>
@@ -31,56 +31,69 @@
                 <span></span>
                 <svg style="width:24px;height:24px; color: blue;" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
-                </svg> 
+                </svg>
               </button>
               </div>
 
+              <!-- [disabled]="formu.invalid" -->
               <button  *ngIf="editar"
-              (click)="enviar()" 
+              (click)="enviar()"
               type="submit"
-              [disabled]="formu.invalid"
               class="btn btn-sm text-center mx-3 px-1 pt-0 my-0 rounded-4 text-wrap bg-success">
               Guardar
               </button>
               <button type="button"
                 (click)="cancel()"
-                
+
                 *ngIf="editar" class="btn btn-sm text-center mx-3 px-1 pt-0 my-0 rounded-4 text-wrap bg-danger" mat-button >Cancelar</button>
             </div>
             </div>
           <div
               class="col-12 colsm-10 col-md-9 mt-2" style="margin: 0 auto;">
               <!-- <h3 class="text-center">Programación del timbre</h3> -->
-              <form *ngIf="editar" 
+<hr>
+              <form *ngIf="editar"
                     [formGroup]="formu"
                     class="table-responsive">
-                <table class="table " >
+                <table class="table table-bordered" >
                   <thead class="table-dark">
-                    <tr> 
+                    <tr>
                         <th >Hora</th>
                         <th >Tipo </th>
+                        <th >Sonara </th>
                         <th >Opciones</th>
                       </tr>
                     </thead>
                     <tbody formArrayName="horario">
                       <tr *ngFor="let item of getCtrl('horario', formu)?.controls; index as indexFormChildPrice"
                       [formGroupName]="indexFormChildPrice"
-                      > 
-                        <td class="p-1"> 
+                      >
+                        <td align="center" class="p-1">
                             <ngx-timepicker-field [format]="24" [defaultTime]="'00:00'" formControlName="start_time" ></ngx-timepicker-field>
                         </td>
-                        <td class="p-1">
-                          <mat-form-field  class="example-full-width"appearance="fill">
+                        <td align="center" class="p-1">
+                          <mat-form-field  class="example-full-width" appearance="fill">
                             <mat-label>Seleccione un tipo</mat-label>
                             <mat-select style="position: relative;" formControlName="tipo" name="tipo">
                               <mat-option  z-index="1056" *ngFor="let timbre of tipo " [value]="timbre?.cod">
                                 {{timbre?.cod}}
-                              </mat-option>                 
-                            </mat-select> 
-                          </mat-form-field> 
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
                             <!-- <ngx-timepicker-field [format]="24" [defaultTime]="'00:00'" formControlName="end_time" ></ngx-timepicker-field> -->
                         </td>
-                        <td class="p-1">
+                        <td align="center">
+                          <mat-form-field class="example-form-field" appearance="fill">
+                            <mat-label>¿Cuántas veces sonará?</mat-label>
+                            <mat-select style="position: relative;" formControlName="sonara" name="sonara">
+                              <mat-option  z-index="1056" *ngFor="let sonara of sonara " [value]="sonara?.cod">
+                                {{sonara?.cod}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+
+                        </td>
+                        <td class="p-1" align="center">
                           <button (click)="delHora(indexFormChildPrice)" type="button" mat-mini-fab ><mat-icon class="text-danger">delete</mat-icon></button>
                         </td>
                       </tr>
@@ -92,22 +105,27 @@
                         type="button" mat-button class="btn mb-2"  style="background-color: rgb(0, 255, 238);"
                         type="button" >
                         <i class="fa-solid fa-plus"></i> Agregar hora
-                    </button> 
+                    </button>
                   </div>
               </form>
               <div *ngIf="!editar" class="table-responsive px-2 pb-4">
-                <table class="table" style="width: 70%; margin: auto;;">
+                <table class="table table-bordered" style="width: 70%; margin: auto;;">
                   <thead class="table-dark">
                     <tr >
                         <th >Hora</th>
                         <th >tipo</th>
+                        <th >Sonará</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of horari"> 
+                      <tr *ngFor="let item of horari">
                         <td class="p-1 px-2">{{item?.start_time}}
                         </td>
                         <td class="p-1 px-2">{{item?.tipo}}
+                        </td>
+                        <td>{{item?.sonara}}
+                          <span *ngIf="item?.sonara===1" >vez</span>
+                          <span *ngIf="item?.sonara>1" >veces</span>
                         </td>
                       </tr>
                     </tbody>

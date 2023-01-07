@@ -17,7 +17,7 @@
     color: rgb(255, 255, 255)!important;
     border-radius: 5px!important;
     transition: all 2s!important;
-} 
+}
 .btn-editar{
 position: relative;
 display: inline-block;
@@ -37,7 +37,7 @@ cursor: pointer;
 
 .btn-editar span{
     position: absolute;
-    display: block; 
+    display: block;
 }
 .btn-editar span:nth-child(1){
     top: 0;
@@ -46,11 +46,15 @@ cursor: pointer;
     height: 2px;
     background: linear-gradient(90deg, transparent, #03e9f4);
     animation: btn-anim1 1s linear infinite;
-}  
+}
 
 // .swal2-html-container{
 //     height: 80vh!important;
 // }
+.body{
+// background-image: './assets/img/fondo.svg';
+// background-color: rgb(0, 0, 0);
+}
 :host ::ng-deep .mat-form-field-wrapper {
     // background-color: red;
     // padding: ;
@@ -124,7 +128,7 @@ cursor: pointer;
     }
 }
 .icon-edit{
-    margin: auto; 
+    margin: auto;
     padding: 2px;
     margin: 0;
     font-size: large;
