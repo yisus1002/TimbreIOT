@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
 
   public activar:boolean=true;
   public tocar:boolean=true;
-  public editar:boolean=true;
+  public editar:boolean=false;
 
   public formu!:    FormGroup;
 
