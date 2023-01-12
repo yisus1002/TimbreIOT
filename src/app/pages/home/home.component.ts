@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
 
   public activar:boolean=true;
   public tocar:boolean=true;
-  public editar:boolean=false;
+  public editar:boolean=true;
 
   public formu!:    FormGroup;
 
@@ -72,7 +72,17 @@ Swal.fire({
     }
 
   }
-
+  _validators = {
+    existeHora: (field: string, array: FormArray) => (group: FormGroup) => {
+      const value = group.controls[field].value;
+      const existe = array.value.find((x:any) => x.start_time === value);
+      if (existe) {
+        console.log({ existeHora: true });
+        return { existeHora: true };
+      }
+      return null;
+    }
+  };
   cambiarEstado(){
     this.activar=!this.activar;
     this.putH(this.scheduleId, {activo: this.activar})
@@ -84,9 +94,30 @@ Swal.fire({
       horario :this.form.array([],[Validators.required])
     })
   }
+
   enviar(){
-    console.log(this.formu.valid);
-    console.log(this.formu.value);
+    // console.log(this.formu.value);
+    let sihay:boolean=false;
+    let verifica:any[]= this.formu.value?.horario?.map((ele:any)=>ele?.start_time)
+    // console.log(verifica);
+    for (let i=0; i< verifica.length; i++){
+      const cont= verifica.filter((x)=>x===verifica[i]);
+      // console.log(cont);
+
+      if (cont.length>1){
+        sihay=true;
+        break;
+      }
+    }
+    // console.log(sihay);
+
+    if(sihay){
+
+      this._sCtr.showToastr_error('Hay horas repetidas')
+      return;
+    }
+    // console.log(this.formu.valid);
+    // console.log(this.formu.value);
 
     if(this.formu.invalid){
       return Object.values(this.formu.controls).forEach(controls=>{
@@ -100,10 +131,8 @@ Swal.fire({
       this.editar=false;
       let hora:any[]=this.formu.value?.horario;
       let horario ={
-        // schedule:hora
         schedules:hora
       }
-      // this.putHoratioId(this.scheduleId, horario)
       this.putH(this.scheduleId, horario);
       this._sCtr.showToastr_success('Horario actualizado')
     }
@@ -111,11 +140,15 @@ Swal.fire({
   loadForm(schedule:any[]){
     this.horari= schedule;
     this.horario.clear();
-    this.horari.forEach((hora:any)=>this.horario.push(this.form.group({
-      start_time: new FormControl(hora?.start_time),
-      tipo  : new FormControl(hora?.tipo),
-      sonara  : new FormControl(hora?.sonara),
-    })))
+    this.horari.forEach((hora: any) => {
+      const horaForm = this.form.group({
+        start_time: new FormControl(hora?.start_time),
+        tipo: new FormControl(hora?.tipo),
+        sonara: new FormControl(hora?.sonara),
+      },{
+      });
+      this.horario.push(horaForm);
+    });
   }
 
   addHora(){
@@ -124,6 +157,8 @@ Swal.fire({
         start_time : ["", [Validators.required],[]],
         tipo       : ["", [Validators.required],[]],
         sonara     : ["", [Validators.required],[]],
+      },{
+        validators: this._validators.existeHora('start_time', this.horario)
       })
     )
   }
