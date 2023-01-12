@@ -130,9 +130,12 @@ Swal.fire({
     }else{
       this.editar=false;
       let hora:any[]=this.formu.value?.horario;
+      hora.sort((a:any, b:any) => a.start_time.localeCompare(b.start_time));
       let horario ={
         schedules:hora
       }
+      console.log(horario);
+
       this.putH(this.scheduleId, horario);
       this._sCtr.showToastr_success('Horario actualizado')
     }
@@ -158,7 +161,7 @@ Swal.fire({
         tipo       : ["", [Validators.required],[]],
         sonara     : ["", [Validators.required],[]],
       },{
-        validators: this._validators.existeHora('start_time', this.horario)
+        // validators: this._validators.existeHora('start_time', this.horario)
       })
     )
   }
@@ -167,7 +170,8 @@ Swal.fire({
     this.loadForm(this.horari)
   }
   delHora(id:any){
-    this.horario.removeAt(id)
+    this.horario.removeAt(id);
+    // this.formu.value?.horario.removeAt(id);
   }
   public getCtrl(key: string, form: FormGroup) {
     return  (<FormArray>form.get(key));
@@ -274,7 +278,9 @@ Swal.fire({
         console.log(data[0]);
         this.activar=data[0]?.activo;
         this.scheduleId= data[0]?.id;
+
         this.horari=data[0]?.schedules;
+      //  this.horari= this.horari.sort((a:any, b:any) => a.start_time.localeCompare(b.start_time));
         this.loadForm(this.horari);
       },
       error: (error:any)=>{
