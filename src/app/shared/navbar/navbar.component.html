@@ -11,7 +11,7 @@
                     type="button"
                     color="primary"
                     data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav" 
+                    data-bs-target="#navbarNav"
                     aria-controls="navbarNav"
                     aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -23,11 +23,15 @@
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse"
             data-bs-target="#navbarNav"   routerLinkActive="active" aria-current="page" [routerLink]="['home']" >Inicio</a>
-          </li> 
+          </li>
           <li *ngxPermissionsOnly="['ADMIN']" class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse"
             data-bs-target="#navbarNav"   routerLinkActive="active" aria-current="page" [routerLink]="['usuarios']">Administrar usuarios</a>
-          </li> 
+          </li>
+          <li *ngxPermissionsOnly="['ADMIN']" class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"   routerLinkActive="active" aria-current="page" [routerLink]="['registro']">Registro</a>
+          </li>
         </ul>
       </div>
     </div>

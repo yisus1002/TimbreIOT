@@ -20,6 +20,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { LOCALE_ID } from '@angular/core';
 import { LoadingComponent } from './shared/loading/loading.component';
+import { RegistroComponent } from './pages/registro/registro.component';
 
 const lang = 'en-US';
 
@@ -36,6 +37,7 @@ const lang = 'en-US';
     ContrasenaPipe,
     FormularioComponent,
     LoadingComponent,
+    RegistroComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,20 @@
+<div class="container py-2">
+  <h1 class="text-center">Registro de cambios</h1>
+  <p class="text-muted">Ultimos 10 registros</p>
+  <hr />
+<app-loading *ngIf="loading"></app-loading>
+  <div class="" *ngIf="ModifiedSchedule.length>0 && !loading">
+    <div class="card py-2 px-3 my-1" *ngFor="let item of ModifiedSchedule">
+      <h3 class="m-0 p-1">Modificado por: <span class="text-muted">{{item.modifiedBy.name +" "+ item.modifiedBy.lastName}}</span></h3>
+      <p>Fecha de modificación: <span class="text-muted">{{item.updatedAt | date:'short'}}</span></p>
+    </div>
+
+    <button mat-button type="button" (click)="verTodos()" color="primary" class="my-3 shadow">
+      Ver el registro de cambios completo
+    </button>
+
+  </div>
+  <div class="alert alert-danger shadow" *ngIf="ModifiedSchedule.length===0 && !loading">
+    No hay cambios realizados
+  </div>
+</div>

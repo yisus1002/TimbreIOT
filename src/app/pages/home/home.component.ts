@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TimbreService } from 'src/app/services/timbre.service';
 import Swal from 'sweetalert2';
+import { ModifiedShedulesService } from '../../services/modified-shedules.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -39,6 +40,7 @@ export class HomeComponent implements OnInit {
               private form     : FormBuilder,
               private _sCtr    : ControlersService,
               private _sTmb    : TimbreService,
+              private _sModified    : ModifiedShedulesService,
                 ) {
     // this.getHorarios();
     this.getHs();
@@ -338,6 +340,12 @@ Swal.fire({
         // if(this.tocar){
           // this._sCtr.showToastr_success('Horario actualizado')
         // }
+        this._sModified.createRegistry(this._sCtr.token)
+        .subscribe({
+          next: () =>{
+            // console.log(data);
+          }
+        })
 
       },
       error: (error:any)=>{
